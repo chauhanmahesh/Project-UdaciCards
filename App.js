@@ -12,6 +12,7 @@ import {blue, white, yellow} from './utils/colors';
 import DeckDetail from './components/DeckDetail';
 import AddCard from './components/AddCard';
 import Quiz from './components/Quiz';
+import {setQuizLocalNotification} from './utils/storageHelper';
 
 // Let's create main tabs to show. We have two main tabs
 // 1. Decks -> To show a list of decks.
@@ -20,8 +21,10 @@ const MainTabs = createBottomTabNavigator({
     Decks: {
         screen: Decks,
         navigationOptions: {
-            tabBarLabel: () => <Text style={{
-                color: white, alignSelf: 'center'
+            tabBarLabel: () => <Text
+                style={{
+                color: white,
+                alignSelf: 'center'
             }}>Decks</Text>,
             tabBarIcon: ({tintColor}) => <Foundation name='page-multiple' size={30} color={tintColor}/>
         }
@@ -29,8 +32,10 @@ const MainTabs = createBottomTabNavigator({
     AddDeck: {
         screen: AddDeck,
         navigationOptions: {
-            tabBarLabel: () => <Text style={{
-                color: white, alignSelf: 'center'
+            tabBarLabel: () => <Text
+                style={{
+                color: white,
+                alignSelf: 'center'
             }}>Add Deck</Text>,
             tabBarIcon: ({tintColor}) => <Foundation name='plus' size={35} color={tintColor}/>
         }
@@ -99,22 +104,27 @@ const DeckNavigator = createStackNavigator({
         }
     },
     Quiz: {
-      screen: Quiz,
-      navigationOptions: {
-          headerTintColor: white,
-          headerStyle: {
-              backgroundColor: blue
-          },
-          title: 'Quiz',
-          headerForceInset: {
-              top: 'never',
-              bottom: 'never'
-          }
-      }
-  }
+        screen: Quiz,
+        navigationOptions: {
+            headerTintColor: white,
+            headerStyle: {
+                backgroundColor: blue
+            },
+            title: 'Quiz',
+            headerForceInset: {
+                top: 'never',
+                bottom: 'never'
+            }
+        }
+    }
 })
 
 export default class App extends React.Component {
+    componentDidMount() {
+      // Let's setup the notification.
+      setQuizLocalNotification()
+    }
+
     render() {
         return (
             <Provider store={createStore(reducer)}>

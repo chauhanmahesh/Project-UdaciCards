@@ -4,6 +4,7 @@ import {connect} from 'react-redux';
 import {gray, blue, red, white, lightGray, yellow, lightGreen} from '../utils/colors';
 import CardFlip from 'react-native-card-flip';
 import {Foundation} from '@expo/vector-icons';
+import {clearQuizNotification, setQuizLocalNotification} from '../utils/storageHelper';
 
 class Quiz extends React.Component {
     state = {
@@ -70,10 +71,19 @@ class Quiz extends React.Component {
         }))
     }
 
+    /**
+     * @description Checks if the actions needs to be enabled or not.
+     * We enable actions only from question view and not in answer view because
+     * in iOS if the card is in answer mode and we move to next question then it reveals the answer as
+     * the card is already flipped.
+     */
     isActionsEnabled = () => {
         return !this.state.showingAnswer
     }
 
+    /**
+     * @description Starts the quiz again by resetting all state.
+     */
     startQuizAgain = () => {
         // Let's reset the state to start the quiz again.
         this.setState(() => ({
@@ -84,7 +94,15 @@ class Quiz extends React.Component {
         }))
     }
 
+    /**
+     * @description Renders scorecard.
+     */
     renderScoreCard = () => {
+        // As we are rendering scorecard, means user is done with quiz for today. So let's clear the notification
+        // if any and setup a new one for tomorrow.
+        clearQuizNotification()
+        .then(setQuizLocalNotification())
+
         const {title, questions} = this.props.deck
         const numCards = questions.length
         const score = (this.state.correctAnswers / numCards) * 100
@@ -103,6 +121,9 @@ class Quiz extends React.Component {
         )
     }
 
+    /**
+     * @description Renders Quiz.
+     */
     renderQuiz = () => {
         const {questions} = this.props.deck
         // Let's get current question number.
