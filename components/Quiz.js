@@ -95,6 +95,15 @@ class Quiz extends React.Component {
     }
 
     /**
+     * @description Navigate to deck view again.
+     */
+    backToDeck = () => {
+        this.props
+            .navigation
+            .navigate('DeckDetail', {deckId: this.props.deck.title})
+    }
+
+    /**
      * @description Renders scorecard.
      */
     renderScoreCard = () => {
@@ -116,7 +125,10 @@ class Quiz extends React.Component {
                     <Text style={styles.scorePercentage}>{Math.round(score)} %</Text>    
                 <TouchableOpacity style={[styles.action, styles.startQuizAgain]} onPress={this.startQuizAgain}>
                     <Text style={[styles.actionText, styles.actionTextEnabled]}>Start Again</Text>
-                </TouchableOpacity>        
+                </TouchableOpacity>  
+                <TouchableOpacity style={[styles.action, styles.backToDeck]} onPress={this.backToDeck}>
+                    <Text style={[styles.actionText, styles.actionTextEnabled]}>Back to Deck</Text>
+                </TouchableOpacity>      
             </View>
         )
     }
@@ -245,6 +257,9 @@ const styles = StyleSheet.create({
     },
     startQuizAgain: {
         backgroundColor: red,
+    },
+    backToDeck: {
+        backgroundColor: blue,
     },
     correctAnswerActionEnabled: {
         backgroundColor: blue

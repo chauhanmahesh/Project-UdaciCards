@@ -22,6 +22,7 @@ User can't start the quiz if there is no cards in the deck. The 'Start Quiz' act
 * In 'Add Card' screen, user need to enter 'Question' and 'Answer' text before submitting it. Submit will be disabled until user enteres both quesiton and answer.
 * Once the quiz is complete, it shows the percentage which user scored. User has an option to start the quiz again from the scoreboard.
 * User sees a notification as a reminder everyday at 6:00 PM. Once user finishes a quiz, the notification will be cleared and scheduled for the next day.
+* The app is tested on both iOS and Android.
 
 ## Installation and Launching
 To launch this "UdaciCards" app:
