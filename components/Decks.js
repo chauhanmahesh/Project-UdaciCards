@@ -5,6 +5,7 @@ import {connect} from 'react-redux';
 import {fetchExistingDecks} from '../utils/storageHelper';
 import {receiveDecks} from '../actions';
 import Spinner from 'react-native-loading-spinner-overlay';
+import {getNumberOfCardsSuffix} from '../utils/genericUtils';
 
 class Decks extends Component {
     state = {
@@ -49,7 +50,7 @@ class Decks extends Component {
                 onPress={() => this.props.navigation.navigate('DeckDetail', {deckId : deck.title})}>
                 <View style={styles.deckCardsCountContainer}>
                     <Text style={styles.deckCardCount}>{deck.questions.length}</Text>
-                    <Text style={styles.deckCardLabel}>Cards</Text>
+                    <Text style={styles.deckCardLabel}>{getNumberOfCardsSuffix(deck.questions.length)}</Text>
                 </View>
                 <Text style={styles.deckName}>{deck.title}</Text>
             </TouchableOpacity>

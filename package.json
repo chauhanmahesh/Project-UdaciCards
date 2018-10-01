@@ -13,6 +13,7 @@
     "react": "16.3.1",
     "react-native": "https://github.com/expo/react-native/archive/sdk-30.0.0.tar.gz",
     "react-native-card-flip": "^1.0.4",
+    "react-native-easy-toast": "^1.1.0",
     "react-native-loading-spinner-overlay": "^0.5.2",
     "react-native-super-grid": "^2.4.3",
     "react-navigation": "^2.17.0",

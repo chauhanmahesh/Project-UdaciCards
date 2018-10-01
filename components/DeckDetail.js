@@ -3,6 +3,7 @@ import {View, StyleSheet, Text, TouchableOpacity} from 'react-native';
 import {connect} from 'react-redux';
 import {Foundation} from '@expo/vector-icons';
 import {lightGreen, gray, blue, red, white, lightGray} from '../utils/colors';
+import {getNumberOfCardsSuffix} from '../utils/genericUtils';
 
 class DeckDetail extends React.Component {
     static navigationOptions = ({navigation}) => {
@@ -34,9 +35,7 @@ class DeckDetail extends React.Component {
             <View style={styles.container}>
                 <Foundation name='page-multiple' size={100} color={lightGreen}/>
                 <Text style={styles.deckTitle}>{title}</Text>
-                <Text style={styles.numCards}>{numCards} {numCards > 1
-                        ? 'cards'
-                        : 'card'}</Text>
+                <Text style={styles.numCards}>{numCards} {getNumberOfCardsSuffix(numCards)}</Text>
                 <TouchableOpacity style={[styles.action, styles.addCardActionEnabled]} onPress={this.toAddCard}>
                     <Text style={[styles.actionText, styles.actionTextEnabled]}>Add Card</Text>
                 </TouchableOpacity>

@@ -46,7 +46,8 @@ To launch this "UdaciCards" app:
 │   ├── UdaciCardsStatusBar.js # Status bar for the app.
 ├── utils
 │   └── colors.js # List all the colors which is used in the app.
-│   └── storageHelper.js # Lists all the utility API's which is used in the app.
+│   └── storageHelper.js # Lists all the storage related utility API's which is used in the app.
+│   └── genericUtil.js # Lists all the generic utility API's which is used in the app.
 ├── App.js # The root component of the app.
 ```
 ## Create React Native App

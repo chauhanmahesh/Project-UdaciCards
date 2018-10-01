@@ -6,13 +6,15 @@ import {
     TextInput,
     TouchableOpacity,
     ScrollView,
-    Platform
+    Platform,
+    KeyboardAvoidingView
 } from 'react-native';
 import {MaterialCommunityIcons} from '@expo/vector-icons';
 import {lightGreen, white, blue, gray, lightGray} from '../utils/colors';
 import {addCardToDeckStorage} from '../utils/storageHelper';
 import {connect} from 'react-redux';
 import {addCard} from '../actions';
+import Toast from 'react-native-easy-toast';
 
 class AddCard extends React.Component {
     state = {
@@ -37,6 +39,8 @@ class AddCard extends React.Component {
             dispatch(addCard(cardInfo))
         })
         this.setState({question: '', answer: ''})
+        // Show a toast.
+        this.refs.toast.show('Card is added to the deck.');
     }
 
     /**
@@ -51,7 +55,7 @@ class AddCard extends React.Component {
     render() {
         return (
             <ScrollView>
-                <View style={styles.container}>
+                <KeyboardAvoidingView style={styles.container} behavior='padding'>
                     <MaterialCommunityIcons name='cards' size={100} color={lightGreen}/>
                     <Text style={styles.inputLabel}>What's the question?</Text>
                     <TextInput
@@ -79,9 +83,9 @@ class AddCard extends React.Component {
                     <TouchableOpacity disabled={!this.isSubmitEnabled()} style={[styles.action, this.isSubmitEnabled() ? styles.enabledAction : styles.disabledAction]} onPress={this.handleSubmit}>
                         <Text style={[styles.actionText, this.isSubmitEnabled() ? styles.actionTextEnabled : styles.actionTextDisabled]}>Submit</Text>
                     </TouchableOpacity>
-                </View>
+                    <Toast ref="toast" position='center'/>
+                </KeyboardAvoidingView>
             </ScrollView>
-
         )
     }
 }

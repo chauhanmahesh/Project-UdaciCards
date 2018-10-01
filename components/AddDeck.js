@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, Platform} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, Platform, KeyboardAvoidingView} from 'react-native';
 import {Foundation} from '@expo/vector-icons';
 import {lightGreen, white, blue, gray, lightGray} from '../utils/colors';
 import {addDeckToStorage} from '../utils/storageHelper';
@@ -22,16 +22,19 @@ class AddDeck extends React.Component {
             title: this.state.title,
             questions: []
         }
-        console.log("deck" + deck)
         addDeckToStorage({deck, key}).then(() => {
             // Let's dispatch action to add this new deck to the store.
             dispatch(addDeck({
                 [key]: deck
             }))
+            // Let's reset the state.
+            this.setState({
+                title: ''
+            })
+            // Let's navigate to individual deck view.
+            this.props.navigation.navigate('DeckDetail', {deckId: key})
         })
-        this.setState({
-            title: ''
-        })
+        
     }
 
     /**
@@ -45,7 +48,7 @@ class AddDeck extends React.Component {
 
     render() {
         return (
-            <View style={styles.container}>
+            <KeyboardAvoidingView style={styles.container} behavior='padding'>
                 <Foundation name='page-multiple' size={100} color={lightGreen}/>
                 <Text style={styles.newDeckTitleLabel}>What's the title of new deck?</Text>
                 <TextInput
@@ -58,7 +61,7 @@ class AddDeck extends React.Component {
                 <TouchableOpacity disabled={!this.isSubmitEnabled()} style={[styles.action, this.isSubmitEnabled() ? styles.enabledAction : styles.disabledAction]} onPress={this.handleSubmit}>
                     <Text style={[styles.actionText, this.isSubmitEnabled() ? styles.actionTextEnabled : styles.actionTextDisabled]}>Submit</Text>
                 </TouchableOpacity>
-            </View>
+            </KeyboardAvoidingView>
         )
     }
 }
